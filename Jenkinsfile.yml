@@ -1,0 +1,19 @@
+version: "1.9.0"
+
+ms:
+  name: "device-management"
+  port: 8141
+  apiGWStage: "securityManagement"
+  stacks:
+    - stack: "dev"
+      cluster: 'adl-dev-eks'
+      namespace: 'adl-habilitadora-dev'
+      apiGWStage: "securityManagement"
+    - stack: "stg"
+      cluster: 'adl-stg-eks'
+      namespace: 'adl-habilitadora-stg'
+      apiGWStage: "securityManagement"
+    - stack: "pro"
+      cluster: 'adl-pro-eks'
+      namespace: 'adl-habilitadora-pro-eks'
+      apiGWStage: "securityManagement"
