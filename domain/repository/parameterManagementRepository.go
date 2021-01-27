@@ -43,9 +43,12 @@ func (p ParameterManagementRepositoryImpl) Save(parameter entities.Parameter) er
 
 
 func NewSession(region string) dynamodbiface.DynamoDBAPI {
+	endpoint := "http://localhost:4566"
+
 	// Create Dynamodb AWS session
 	config := &aws.Config{
-		Region: &region,
+		Endpoint: &endpoint,
+		Region:   &region,
 	}
 
 	var svc dynamodbiface.DynamoDBAPI
