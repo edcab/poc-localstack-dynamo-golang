@@ -4,17 +4,17 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "Key"
-  range_key      = "Value"
+//  range_key      = "Key"
 
   attribute {
     name = "Key"
     type = "S"
   }
 
-  attribute {
-    name = "Value"
-    type = "S"
-  }
+//  attribute {
+//    name = "Key"
+//    type = "S"
+//  }
 
   ttl {
     attribute_name = "TimeToExist"
