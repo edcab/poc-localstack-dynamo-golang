@@ -1,8 +1,6 @@
 package entities
 
 type Parameter struct {
-	Key string
+	Key   string
 	Value string
 }
-
-

@@ -27,13 +27,13 @@ func NewHandler() *HTTPHandler {
 
 type endpoints struct {
 	Save func() endpoint.Endpoint
-	Get func() endpoint.Endpoint
+	Get  func() endpoint.Endpoint
 }
 
 func makeServerEndpoints() endpoints {
 	return endpoints{
 		Save: save.MakeSaveEndpoint,
-		Get: get.MakeGetEndpoint,
+		Get:  get.MakeGetEndpoint,
 	}
 }
 

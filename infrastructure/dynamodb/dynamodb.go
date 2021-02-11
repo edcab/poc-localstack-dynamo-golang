@@ -9,24 +9,24 @@ import (
 	"poc-localstack-dynamo-golang/infrastructure/dynamodb/model"
 )
 
-type DynamoDB interface{
+type DynamoDB interface {
 	Save(item model.Item) error
 	Get(item model.Item) (model.Item, error)
 }
 
 type DynamoService struct {
-	dynamoConfig dynamodbiface.DynamoDBAPI
-	tableName    string
+	dynamoDBAPI dynamodbiface.DynamoDBAPI
+	tableName   string
 }
 
 func NewDynamoClient(dynamoConfig dynamodbiface.DynamoDBAPI, tableName string) DynamoDB {
 	return &DynamoService{
-		dynamoConfig: dynamoConfig,
-		tableName:    tableName,
+		dynamoDBAPI: dynamoConfig,
+		tableName:   tableName,
 	}
 }
 
-func (d DynamoService) Save(item model.Item) error{
+func (d DynamoService) Save(item model.Item) error {
 
 	input := &dynamodb.PutItemInput{
 		Item: map[string]*dynamodb.AttributeValue{
@@ -38,9 +38,7 @@ func (d DynamoService) Save(item model.Item) error{
 		},
 		TableName: aws.String(d.tableName),
 	}
-
-
-	_, err := d.dynamoConfig.PutItem(input)
+	_, err := d.dynamoDBAPI.PutItem(input)
 
 	if err != nil {
 		return err
@@ -49,9 +47,9 @@ func (d DynamoService) Save(item model.Item) error{
 	return nil
 }
 
-func (d DynamoService) Get(item model.Item) (model.Item,error) {
+func (d DynamoService) Get(item model.Item) (model.Item, error) {
 
-	result, err := d.dynamoConfig.GetItem(&dynamodb.GetItemInput{
+	result, err := d.dynamoDBAPI.GetItem(&dynamodb.GetItemInput{
 		TableName: aws.String(d.tableName),
 		Key: map[string]*dynamodb.AttributeValue{
 			"Key": {

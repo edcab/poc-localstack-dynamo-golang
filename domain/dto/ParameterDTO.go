@@ -1,6 +1,6 @@
 package dto
 
 type ParameterDTO struct {
-	Key string
+	Key   string
 	Value string
 }

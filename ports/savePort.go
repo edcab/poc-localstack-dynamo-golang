@@ -6,13 +6,13 @@ import (
 )
 
 type SavePort interface {
-	Save(parameter dto.ParameterDTO ) error
+	Save(parameter dto.ParameterDTO) error
 }
 
 type SavePortImpl struct {
 }
 
-func NewSavePort() SavePort{
+func NewSavePort() SavePort {
 	return &SavePortImpl{}
 }
 
@@ -26,6 +26,3 @@ func (s SavePortImpl) Save(parameter dto.ParameterDTO) error {
 
 	return nil
 }
-
-
-

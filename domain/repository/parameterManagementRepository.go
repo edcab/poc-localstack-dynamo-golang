@@ -12,15 +12,14 @@ import (
 
 type ParameterManagementRepository interface {
 	Save(parameter entities.Parameter) error
-	Get(parameter entities.Parameter) (entities.Parameter,error)
+	Get(parameter entities.Parameter) (entities.Parameter, error)
 }
 
 type ParameterManagementRepositoryImpl struct {
 }
 
 func NewParameterRepository() ParameterManagementRepository {
-	return &ParameterManagementRepositoryImpl{
-	}
+	return &ParameterManagementRepositoryImpl{}
 }
 
 func (p ParameterManagementRepositoryImpl) Save(parameter entities.Parameter) error {
@@ -34,7 +33,7 @@ func (p ParameterManagementRepositoryImpl) Save(parameter entities.Parameter) er
 
 	err := dynamoClient.Save(itemToSave)
 
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
@@ -47,11 +46,11 @@ func (p ParameterManagementRepositoryImpl) Get(parameter entities.Parameter) (en
 	dynamoClient := dynamodb.NewDynamoClient(NewSession("us-east-1"), "ParameterAPI")
 
 	itemToFind := model.Item{
-		Key:   parameter.Key,
+		Key: parameter.Key,
 	}
 	item, err := dynamoClient.Get(itemToFind)
 
-	if err != nil{
+	if err != nil {
 		return entities.Parameter{}, err
 	}
 
@@ -63,7 +62,6 @@ func (p ParameterManagementRepositoryImpl) Get(parameter entities.Parameter) (en
 	return parameterFound, nil
 
 }
-
 
 func NewSession(region string) dynamodbiface.DynamoDBAPI {
 	endpoint := "http://localhost:4566"

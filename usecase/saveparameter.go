@@ -14,8 +14,7 @@ type SaveImpl struct {
 }
 
 func NewUseCaseSave() Save {
-	return &SaveImpl{
-	}
+	return &SaveImpl{}
 }
 
 func (s SaveImpl) Save(dto dto.ParameterDTO) error {

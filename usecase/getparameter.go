@@ -14,11 +14,10 @@ type GetImpl struct {
 }
 
 func NewUseCaseGet() Get {
-	return &GetImpl{
-	}
+	return &GetImpl{}
 }
 
-func (s GetImpl) Get(parameterDto dto.ParameterDTO) (dto.ParameterDTO,error) {
+func (s GetImpl) Get(parameterDto dto.ParameterDTO) (dto.ParameterDTO, error) {
 	getService := service.NewGetService()
 
 	parameter := entities.Parameter{

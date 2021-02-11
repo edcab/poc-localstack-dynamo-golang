@@ -6,11 +6,10 @@ import (
 )
 
 type GetService interface {
-	Get(parameter entities.Parameter) (entities.Parameter,error)
+	Get(parameter entities.Parameter) (entities.Parameter, error)
 }
 
 type GetServiceImpl struct {
-
 }
 
 func NewGetService() GetService {
@@ -23,7 +22,7 @@ func (s GetServiceImpl) Get(parameter entities.Parameter) (entities.Parameter, e
 
 	parameterFound, err := managementRepository.Get(parameter)
 
-	if err != nil{
+	if err != nil {
 		return entities.Parameter{}, err
 	}
 

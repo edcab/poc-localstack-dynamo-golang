@@ -6,13 +6,13 @@ import (
 )
 
 type GetPort interface {
-	Get(parameter dto.ParameterDTO ) (dto.ParameterDTO, error)
+	Get(parameter dto.ParameterDTO) (dto.ParameterDTO, error)
 }
 
 type GetPortImpl struct {
 }
 
-func NewGetPort() GetPort{
+func NewGetPort() GetPort {
 	return &GetPortImpl{}
 }
 
@@ -26,6 +26,3 @@ func (s GetPortImpl) Get(parameter dto.ParameterDTO) (dto.ParameterDTO, error) {
 
 	return parameterDtoFound, nil
 }
-
-
-

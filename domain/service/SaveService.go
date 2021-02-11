@@ -10,7 +10,6 @@ type SaveService interface {
 }
 
 type SaveServiceImpl struct {
-
 }
 
 func NewSaveService() SaveService {
@@ -23,7 +22,7 @@ func (s SaveServiceImpl) Save(parameter entities.Parameter) error {
 
 	err := managementRepository.Save(parameter)
 
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
