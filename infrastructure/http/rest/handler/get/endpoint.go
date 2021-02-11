@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"github.com/go-kit/kit/endpoint"
 	"net/http"
+	"poc-localstack-dynamo-golang/domain/dto"
 	"poc-localstack-dynamo-golang/infrastructure/http/rest/handler/get/model"
+	"poc-localstack-dynamo-golang/ports"
 )
 
 func MakeGetEndpoint() endpoint.Endpoint {
@@ -18,7 +20,19 @@ func MakeGetEndpoint() endpoint.Endpoint {
 			return nil, err
 		}
 
-		response := model.Response{Value: "This is a mock response for value"}
+		port := ports.NewGetPort()
+
+		parameterDTO := dto.ParameterDTO{
+			Key: body.Key,
+		}
+
+		parameterFoundDTO, err := port.Get(parameterDTO)
+
+		if err != nil {
+			return model.Response{}, err
+		}
+
+		response := model.Response{Value: parameterFoundDTO.Value}
 
 		return response, nil
 	}

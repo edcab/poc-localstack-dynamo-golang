@@ -5,26 +5,26 @@ import (
 	"poc-localstack-dynamo-golang/usecase"
 )
 
-type SavePort interface {
-	Save(parameter dto.ParameterDTO ) error
+type GetPort interface {
+	Get(parameter dto.ParameterDTO ) (dto.ParameterDTO, error)
 }
 
-type SavePortImpl struct {
+type GetPortImpl struct {
 }
 
-func NewSavePort() SavePort{
-	return &SavePortImpl{}
+func NewGetPort() GetPort{
+	return &GetPortImpl{}
 }
 
-func (s SavePortImpl) Save(parameter dto.ParameterDTO) error {
-	ucSave := usecase.NewUseCaseSave()
-	err := ucSave.Save(parameter)
+func (s GetPortImpl) Get(parameter dto.ParameterDTO) (dto.ParameterDTO, error) {
+	ucGet := usecase.NewUseCaseGet()
+	parameterDtoFound, err := ucGet.Get(parameter)
 
 	if err != nil {
-		return err
+		return dto.ParameterDTO{}, err
 	}
 
-	return nil
+	return parameterDtoFound, nil
 }
 
 

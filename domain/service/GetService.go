@@ -5,27 +5,27 @@ import (
 	"poc-localstack-dynamo-golang/domain/repository"
 )
 
-type SaveService interface {
-	Save(parameter entities.Parameter) error
+type GetService interface {
+	Get(parameter entities.Parameter) (entities.Parameter,error)
 }
 
-type SaveServiceImpl struct {
+type GetServiceImpl struct {
 
 }
 
-func NewSaveService() SaveService {
-	return &SaveServiceImpl{}
+func NewGetService() GetService {
+	return &GetServiceImpl{}
 }
 
-func (s SaveServiceImpl) Save(parameter entities.Parameter) error {
+func (s GetServiceImpl) Get(parameter entities.Parameter) (entities.Parameter, error) {
 
 	managementRepository := repository.NewParameterRepository()
 
-	err := managementRepository.Save(parameter)
+	parameterFound, err := managementRepository.Get(parameter)
 
 	if err != nil{
-		return err
+		return entities.Parameter{}, err
 	}
 
-	return nil
+	return parameterFound, err
 }

@@ -6,31 +6,33 @@ import (
 	"poc-localstack-dynamo-golang/domain/service"
 )
 
-type Save interface {
-	Save(dto dto.ParameterDTO) error
+type Get interface {
+	Get(dto dto.ParameterDTO) (dto.ParameterDTO, error)
 }
 
-type SaveImpl struct {
+type GetImpl struct {
 }
 
-func NewUseCaseSave() Save {
-	return &SaveImpl{
+func NewUseCaseGet() Get {
+	return &GetImpl{
 	}
 }
 
-func (s SaveImpl) Save(dto dto.ParameterDTO) error {
-	saveService := service.NewSaveService()
+func (s GetImpl) Get(parameterDto dto.ParameterDTO) (dto.ParameterDTO,error) {
+	getService := service.NewGetService()
 
 	parameter := entities.Parameter{
-		Key:   dto.Key,
-		Value: dto.Value,
+		Key:   parameterDto.Key,
+		Value: parameterDto.Value,
 	}
 
-	err := saveService.Save(parameter)
+	entParameterFound, err := getService.Get(parameter)
 
 	if err != nil {
-		return err
+		return dto.ParameterDTO{}, err
 	}
 
-	return nil
+	parameterDto.Value = entParameterFound.Value
+
+	return parameterDto, err
 }

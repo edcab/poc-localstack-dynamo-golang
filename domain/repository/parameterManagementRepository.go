@@ -12,6 +12,7 @@ import (
 
 type ParameterManagementRepository interface {
 	Save(parameter entities.Parameter) error
+	Get(parameter entities.Parameter) (entities.Parameter,error)
 }
 
 type ParameterManagementRepositoryImpl struct {
@@ -38,6 +39,28 @@ func (p ParameterManagementRepositoryImpl) Save(parameter entities.Parameter) er
 	}
 
 	return nil
+
+}
+
+func (p ParameterManagementRepositoryImpl) Get(parameter entities.Parameter) (entities.Parameter, error) {
+
+	dynamoClient := dynamodb.NewDynamoClient(NewSession("us-east-1"), "ParameterAPI")
+
+	itemToFind := model.Item{
+		Key:   parameter.Key,
+	}
+	item, err := dynamoClient.Get(itemToFind)
+
+	if err != nil{
+		return entities.Parameter{}, err
+	}
+
+	parameterFound := entities.Parameter{
+		Key:   item.Key,
+		Value: item.Value,
+	}
+
+	return parameterFound, nil
 
 }
 
